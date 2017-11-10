@@ -231,6 +231,8 @@ hotels[price_HUF > 250000, table(stars)]
 hotels[price_HUF > 250000, mean(stars, na.rm = TRUE), by = city] # varosok szerint adjuk meg a csillagok atlagos szamat
 str(hotels)
 hotels[price_HUF > 250000 & city == 'Naples, Italy']
+## %in% if we wanted to list more cities, we could write city %in% ('Budapest, Hungary','Naples, Italy')
+?data.table
 ?by
 
 ## TODO compute avg price per number of stars

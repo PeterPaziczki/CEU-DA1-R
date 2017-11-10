@@ -1,0 +1,91 @@
+---
+title: "session_6_demo"
+author: "PeterPaziczki"
+date: '2017 oktÄ‚Ĺ‚ber 29 '
+output:
+  html_document: default
+---
+
+```{r init, echo=FALSE}
+library(knitr)
+opts_chunk$set(echo = FALSE, error = TRUE)
+```
+
+Markdown is a **simple** *markup* language. Highlighting can be ***combined*** or ~~none~~.
+
+Markdown is a **simple** *markup* language.
+Highlighting
+can
+be ***combined*** or ~~none~~.
+
+New paragraph.
+
+
+```{r random-numbers}
+n <- 1000
+x <- rnorm(n, 10, 1)
+```
+We have just generated `r n` numbers:
+
+```{r analysis}
+summary(x)
+hist(x)
+```
+
+```{r tables}
+table(iris$Species)
+library(knitr)
+kable(head(iris))
+kable(table(iris$Species)) # this won't run, because kable cannot handle tables
+
+library(pander)
+pander(table(iris$Species))
+
+fit <- lm(Sepal.Width ~ Sepal.Length + Species, iris)
+pander(fit)
+
+```
+
+TODO:
+  
+  - create a new R chunk: example
+  - load the ggplot2 package (that includes the diamonds dataset)
+  - render a table with average price of diamonds
+  - render a boxplot on the prices of diamonds per cut quality
+
+
+```{r example}
+## we could write fig.width=7 or fig.heights=3, etc
+## https://yihui.name/knitr/options/ is a great page where I can read about the option, Yihui is the author of knitr
+library(ggplot2)
+library(data.table)
+dt <- data.table(diamonds)
+pander(dt[,list(average_price = mean(price)), by = cut])
+pander(dt[,list(average_price = mean(price)), by = cut], style = 'simple')
+pander(dt[,list(average_price = mean(price)), by = cut], style = 'grid')
+ggplot(dt, aes(cut, price)) + geom_boxplot()
+```
+
+```{r dynamic-chunk-example}
+library(shiny)
+inputPanel(
+  sliderInput('n', label = 'N', min = 1, max = 1000, value = 100, step = 10)
+
+)
+
+renderPlot({
+  hist(runif(as.numeric(input$n)))
+})
+```
+
+```{r dynamic-chunk-example-2}
+library(shiny)
+inputPanel(
+    sliderInput('n', label = 'N', min = 1, max = 1000, value = 100, step = 10),
+    sliderInput('seed', label = 'Seed', min = 1, max = 42, value = 42, step = 1)) ## LATER
+
+renderPlot({
+  set.seed(as.numeric(input$seed)) ## LATER
+  hist(runif(as.numeric(input$n)))
+})
+```

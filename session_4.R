@@ -8,7 +8,7 @@ x <- 'Budapest, Hungary'
 x # it is a string
 ## we will learn how to parse things from a string
 ## let's split the string -> split, regexp
-strsplit(x, ',') # first argument is the string I would split
+strsplit(x, ',') # first argument is the string I would split, the ',' is the part where I split the string and drop the comma as well
 ?strsplit
 str(strsplit(x, ',')) # it returns a list with one element, that element is a character vector, where we have two strings
 
@@ -157,7 +157,8 @@ ggplot(country_stats, aes(gdp, price)) + geom_point()
 ggplot(country_stats, aes(gdp, price)) + geom_point() + geom_smooth()
 ggplot(country_stats, aes(gdp, price)) + geom_point() + geom_smooth(method = 'lm')
 ggplot(country_stats, aes(gdp, price)) + geom_text() # label is missing, let's add it
-ggplot(country_stats, aes(gdp, price, label = country)) + geom_text() + geom_smooth()
+ggplot(country_stats, aes(gdp, price, label = country)) + geom_text() + geom_smooth() # instead of plotting point we can plot
+## the labels as text on the plot
 ggplot(country_stats, aes(gdp, price)) + geom_text(aes(label = country)) + geom_smooth()
 
 hotels[, max(price_HUF), by = country][order(V1)]

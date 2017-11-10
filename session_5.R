@@ -1,1 +1,11 @@
+install.packages("readxl")
+install.packages(('futile.logger'))
 rm(list=ls())
+library(readxl)
+library(data.table)
+comp_name <- read_excel('financial_var_names.xlsx')
+
+library(futile.logger)
+flog.info('This will be fun')
+flog.debug('And sometimes painful.')
+flog.threshold(TRACE)
